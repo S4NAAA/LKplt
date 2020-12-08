@@ -5,9 +5,18 @@ import matplotlib.pyplot as plt
 from NwtPly import NwtPly
 from zvals import GLOB_PR, GLOB_TR, GLOB_Z0 ,GLOB_Z1
 
+# This is a project of a thermodynamics class I made, because im going to
+# upload it to my github naming will be in english, only stuff that
+# will be somehow presented is going to be on spansih :)
+
+
+# A little safe check that doesn't actually guarantee anything
+# to see if I did something wrong
 # print(len(GLOB_TR), len(GLOB_PR), len(GLOB_Z0), len(GLOB_Z1))
 
-# all of these should be encapsulated in the clasee
+
+
+# all of these should be encapsulated in the class
 # im too lazy and tired to do that
 
 def tr_index_range_helper(tr):
@@ -17,7 +26,7 @@ def tr_index_range_helper(tr):
     elif tr > tr_val and tr < GLOB_TR[i + 1]:
       return i, i + 1
   
-  raise Exception("matching tr not found")
+  raise Exception("didn't found a matching tr")
 
 def pr_index_range_helper(pr):
   for i, pr_val in enumerate(GLOB_PR[:-1]):
@@ -26,7 +35,7 @@ def pr_index_range_helper(pr):
     elif pr > pr_val and pr < GLOB_PR[i + 1]:
       return i, i + 1
  
-  raise Exception("matching pr not found")
+  raise Exception("didn't found a matching pr")
 
 def find_z0(tr, pr):
   tr_i1, tr_i2 = tr_index_range_helper(tr)
@@ -69,7 +78,7 @@ def find_z1(tr, pr):
     return NwtPly([pr_1, pr_2], [GLOB_Z1[tr_i1][pr_i1], GLOB_Z1[tr_i1][pr_i2]])(pr)
 
 class LeeKesler:
-  R = 83.14 # change it if you want to, ngl should be con construction
+  R = 83.14 # change it if you want to, ngl it should be on the contructor
   def __init__(self, w, Tc, Pc):
     self.__w = w
     self.__Tc = Tc
@@ -85,15 +94,14 @@ class LeeKesler:
     return self.__find_z(T, P) * self.R * T / P
 
 
-butano = LeeKesler(0.2, 425.1, 37.96)
+etileno = LeeKesler(0.087, 282.3, 50.40)
 
-T = np.linspace(425.1 * 0.3, 425.1 * 0.9, 64)
-P = np.linspace(37.96 * 0.011, 37.96 * 0.14, 64)
+T = np.linspace(282.3 * 0.36, 282.3 * 1.6, 128)
+P = np.linspace(10, 42.6096, 128)
 
 T, P = np.meshgrid(T, P)
 
-Z = butano.find_v(T, P)
-
+Z = etileno.find_v(T, P)
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
