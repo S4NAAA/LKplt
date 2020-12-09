@@ -26,7 +26,7 @@ def tr_index_range_helper(tr):
     elif tr > tr_val and tr < GLOB_TR[i + 1]:
       return i, i + 1
   
-  raise Exception("didn't found a matching tr")
+  raise Exception("didn't find a matching tr")
 
 def pr_index_range_helper(pr):
   for i, pr_val in enumerate(GLOB_PR[:-1]):
@@ -35,7 +35,7 @@ def pr_index_range_helper(pr):
     elif pr > pr_val and pr < GLOB_PR[i + 1]:
       return i, i + 1
  
-  raise Exception("didn't found a matching pr")
+  raise Exception("didn't find a matching pr")
 
 def find_z0(tr, pr):
   tr_i1, tr_i2 = tr_index_range_helper(tr)
