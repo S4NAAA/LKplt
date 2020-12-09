@@ -93,11 +93,15 @@ class LeeKesler:
   def __find_v(self, T, P):
     return self.__find_z(T, P) * self.R * T / P
 
+T1 = 298.15
+T2 = 700
+P1 = 20
+P2 = 40
 
 etileno = LeeKesler(0.087, 282.3, 50.40)
 
-T = np.linspace(282.3 * 0.36, 282.3 * 1.6, 128)
-P = np.linspace(10, 42.6096, 128)
+T = np.linspace(T1, T2, 128)
+P = np.linspace(P1, P2, 128)
 
 T, P = np.meshgrid(T, P)
 
@@ -109,6 +113,31 @@ surf = ax.plot_surface(T, P, Z, cmap = 'coolwarm')
 ax.set_xlabel("Temperatura (˚K)")
 ax.set_ylabel("Presión (bar)")
 ax.set_zlabel("Volumen especifico (cm3/mol)")
+ax.set_title("etileno")
+
+etanol = LeeKesler(0.645, 513.9, 61.48)
+
+Z = etanol.find_v(T, P)
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+surf = ax.plot_surface(T, P, Z, cmap = 'coolwarm')
+ax.set_xlabel("Temperatura (˚K)")
+ax.set_ylabel("Presión (bar)")
+ax.set_zlabel("Volumen especifico (cm3/mol)")
+ax.set_title("etanol")
+
+agua = LeeKesler(0.345, 647.1, 220.55)
+
+Z = agua.find_v(T, P)
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+surf = ax.plot_surface(T, P, Z, cmap = 'coolwarm')
+ax.set_xlabel("Temperatura (˚K)")
+ax.set_ylabel("Presión (bar)")
+ax.set_zlabel("Volumen especifico (cm3/mol)")
+ax.set_title("agua")
 
 plt.show()
 
